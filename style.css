@@ -1,3 +1,9 @@
 .red-text {
     color: red;
 }
+.uppercase{
+    text-transform: uppercase;
+}
+.uppecaseOne{
+    text-transform: capitalize;
+}
