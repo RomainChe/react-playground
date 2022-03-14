@@ -1,9 +1,6 @@
-const helloWorld = React.createElement('h1', {}, 'Hello world!');
+const titre = 'Hello World';
+const element = <h1>{titre}</h1>;
+
+ReactDOM.render(element, document.querySelector('#app'));
 
 
-// mauvaise pratique
-
-
-//ReactDOM.render(helloWorld, document.body);
-
-ReactDOM.render(helloWorld, document.querySelector('#app'));
