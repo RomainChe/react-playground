@@ -1,39 +1,53 @@
-function UserGreeting(props) {
-    return <h1>Bienvenue !</h1>;
-  }
-  
-  function GuestGreeting(props) {
-    return <h1>Veuillez vous connecter</h1>;
-  }
-  function Greeting(props) {
-      const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-
-      const handleLogIn = (e) => {
-          e.preventDefault();
-          setIsLoggedIn(true);
+function App(props) {
+  const fetchURL = 'https://jsonplaceholder.typicode.com/users';
+  React.useEffect(() => {
+      fetch(fetchURL)
+      .then(res => res.json())
+      .then(usersObject => setUsers(usersObject))
+  }, [])
+  const [users, setUsers] = React.useState([]);
+  return(
+      <React.Fragment>
+      {
+          users.map((user) =>(
+              <Cards key={user.id} user={user}/>
+          ))
       }
+      </React.Fragment>
+  )
+}
 
-      const handleLogOut = (e) => {
-          e.preventDefault();
-          setIsLoggedIn(false);
-      }
-
+  function Cards({user}) {
     return(
-        <React.Fragment>
-            {isLoggedIn ? 
-            <React.Fragment>
-                <UserGreeting />
-                <button onClick={handleLogOut}>Se déconnecter</button>
-            </React.Fragment> : 
-            <React.Fragment>
-                <GuestGreeting />
-                <button onClick={handleLogIn}>Se connecter</button>
-            </React.Fragment> }
-        </React.Fragment>
-    )
+    <div>
+      <ul>
+        <li>{user.name}</li>
+        <li>{user.email}</li>
+        <li>{user.company.name}</li>
+        <li>{user.phone}</li>
+        <li>{user.website}</li>
+      </ul>
+    </div>
+    );
   }
-  
-  ReactDOM.render(
-    <Greeting />,
-    document.querySelector('#app')
-  );
+  ReactDOM.render(<App/>, document.querySelector('#app'))
+
+ /* const fetchURL = "https://jsonplaceholder.typicode.com/users";
+  const getUsers = () => fetchURL(fetchURL).then(res => res.json());
+
+  function App() {
+    const [users, setUsers] = React.useState([]); 
+
+    React.useEffect(() => {
+      getUsers().then(data => setUsers(data));
+    }, []);
+    return(
+      <React.Fragment>
+        {
+          users.map(user => (
+            <Cards key={user.id}/>
+          ))
+        }
+      </React.Fragment>
+    )
+  }*/
